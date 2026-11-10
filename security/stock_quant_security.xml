@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Global rule (no groups => applies to every user, but is a no-op unless the
+        user holds a role with allowed warehouses).
+
+        For a restricted user, internal-location quants are limited to the allowed
+        warehouses. Non-internal locations (customers, suppliers, virtual
+        production, ...) stay accessible so stock operations such as
+        manufacturing orders keep working.
+    -->
+    <record id="stock_quant_rule_role_warehouse" model="ir.rule">
+        <field name="name">Stock levels: restrict to role warehouses</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="domain_force">[(1, '=', 1)] if not user.restricted_warehouse_ids else ['|', ('location_id.usage', '!=', 'internal'), ('location_id.warehouse_id', 'in', user.restricted_warehouse_ids.ids)]</field>
+    </record>
+</odoo>

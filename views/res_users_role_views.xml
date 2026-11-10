@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_users_role_form_warehouse" model="ir.ui.view">
+        <field name="name">res.users.role.form.warehouse</field>
+        <field name="model">res.users.role</field>
+        <field name="inherit_id" ref="base_user_role.view_res_users_role_form"/>
+        <field name="arch" type="xml">
+            <field name="is_default" position="after">
+                <field name="warehouse_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+</odoo>
